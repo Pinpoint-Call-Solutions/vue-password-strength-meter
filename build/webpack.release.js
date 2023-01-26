@@ -3,9 +3,8 @@ var path = require('path')
 var config = require('../config')
 var utils = require('./utils')
 var webpack = require("webpack")
-var ExtractTextPlugin = require("extract-text-webpack-plugin")
+const TerserPlugin = require("terser-webpack-plugin");
 var projectRoot = path.resolve(__dirname, '../')
-// var cssLoader = ExtractTextPlugin.extract('style-loader', 'css-loader')
 
 module.exports = {
   entry: {
@@ -19,6 +18,10 @@ module.exports = {
   },
   externals: {
     'zxcvbn': 'zxcvbn'
+  },
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()]
   },
   module: {
     preLoaders: [
@@ -70,12 +73,5 @@ if (process.env.NODE_ENV === 'production') {
         NODE_ENV: '"production"'
       }
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
-    }),
-    new webpack.optimize.OccurenceOrderPlugin()
-    // new ExtractTextPlugin(utils.assetsPath('css/[name].[contenthash].css')),
   ]
 }

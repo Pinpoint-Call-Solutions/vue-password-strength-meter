@@ -12,9 +12,10 @@
 </template>
 
 <script>
+import {defineComponent} from "vue";
 import Password from './components/PasswordStrengthMeter.vue'
 
-export default {
+export default defineComponent({
   name: 'app',
   components: {
     Password
@@ -24,7 +25,7 @@ export default {
       password: null
     }
   }
-}
+});
 </script>
 
 <style>
